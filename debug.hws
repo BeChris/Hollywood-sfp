@@ -1,0 +1,88 @@
+Function MyDebugString(...)
+
+	Local Function PrettyPrint(item, name, indent)
+
+		Local res = RepeatStr(" ", indent)
+
+		If GetType(item) = #TABLE
+			If StrLen(name) <> 0
+				res = res .. ToString(name) .. " : "
+				;ConsolePrintNR(name, " : ")
+			EndIf
+		Else
+			If StrLen(name) = 0
+				res = res .. ToString(item) .. " "
+				;ConsolePrintNR(item, " ")
+			Else
+				res = res .. ToString(name) .. " : " .. ToString(item)
+				;ConsolePrintNR(name, " : ", item)
+			EndIf	
+		EndIf
+	
+		Switch GetType(item)
+			Case #TABLE
+				res = res .. "{\n"
+				;ConsolePrint("{")
+
+				If HaveItem(item, 0)
+					; Normal numéric index based array
+					For k,v In IPairs(item)
+						res = res .. PrettyPrint(v, k, indent + 2)
+					Next
+				Else
+					; Associative array
+					For k,v In Pairs(item)
+						res = res .. PrettyPrint(v, k, indent + 2)
+					Next
+				EndIf
+		 
+		 		res = res .. RepeatStr(" ", indent) .. "}"
+				;ConsolePrintNR(RepeatStr(" ", indent) .. "}")
+				
+				If StrLen(name) <> 0
+					res = res .. " // " .. ToString(name) .. "\n"
+					;ConsolePrint(" // ", name)
+				Else
+					res = res .. "\n"
+					;ConsolePrint("")
+				EndIf
+				
+			Case #FUNCTION
+				res = res .. " (function)\n"
+				;ConsolePrint(" (function)")
+			Case #USERDATA
+				res = res .. " (userdata)\n"
+				;ConsolePrint(" (userdata)")
+			Case #LIGHTUSERDATA
+				res = res .. " (userdata)\n"
+				;ConsolePrint(" (lightuserdata)")
+			Case #THREAD
+				res = res .. " (thread)\n"
+				;ConsolePrint(" (thread)")
+			Case #NIL
+				res = res .. " (nil)\n"
+				;ConsolePrint(" (nil)")
+			Default
+				res = res .. "\n"
+				;ConsolePrint("")
+		EndSwitch
+	
+		Return(res)
+	
+	EndFunction
+
+	Local res = ""
+
+	For k, v In IPairs(arg)
+		res = res .. PrettyPrint(v, "param" .. k+1, 0) .. "\n"
+	Next
+
+	Return(res)
+	
+EndFunction
+
+Function MyDebug(...)
+	For k, v In IPairs(arg)
+		ConsolePrint(MyDebugString(v))
+	Next
+EndFunction
