@@ -1,4 +1,9 @@
 *.o
 *.dep
 build/
+build.*
+test_xlsreader*.*
+!test_xlsreader.hws
+compile_*.sh
+clean_all.sh
 

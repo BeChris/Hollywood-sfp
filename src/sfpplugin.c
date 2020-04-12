@@ -909,35 +909,6 @@ static SAVEDS int hw_SysInfo(lua_State *L)
 
 	lua_rawset(L, -3);
 
-/*
-	lua_pushstring(L, "thermal");
-	lua_newtable(L);
-
-	T(digital_sensor_supported)
-	T(Intel_TurboBoost_supported)
-	T(APIC_timer_always_running_supported)
-	T(PLN_controls_supported)
-	T(ECMD_supported)
-	T(PTM_supported)
-	T(HWP_supported)
-	T(HWP_notification_supported)
-	T(HWP_Activity_Window_supported)
-	T(HWP_Energy_Performance_Preference_supported)
-	T(HWP_Package_Level_Request_supported)
-	T(HDC_supported)
-	T(Intel_Turbo_Boost_3_supported)
-	T(Highest_Performance_change_supported)
-	T(HWP_PECI_override_supported)
-	T(flexible_HWP_supported)
-	T(HWP_request_fast_access_supported)
-	T(ignoring_idle_logical_processor_supported)
-	I(thermal_sensor_interrupt_thresholds)
-	T(hardware_coordination_feedback_supported)
-	T(performance_energy_bias_preference)
-
-	lua_rawset(L, -3);
-*/
-
 	lua_pushstring(L, "caches");
 	lua_newtable(L);
 

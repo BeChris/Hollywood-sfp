@@ -1,0 +1,9 @@
+@INCLUDE "debug.hws"
+
+@REQUIRE "sfp", {Link = True}
+
+@DISPLAY {Hidden = True}
+
+content = sfp.SysInfo()
+
+MyDebug(content)
